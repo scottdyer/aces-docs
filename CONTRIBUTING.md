@@ -1,51 +1,70 @@
-Contributing to ACES Documentation
-==================================
+<!-- SPDX-License-Identifier: CC-BY-4.0 -->
+<!-- Copyright Contributors to the ACES Documentation -->
 
-We 're thrilled that you're interested in contributing to ACES. To maintain the legal integrity of the project's codebase, we require all contributors to sign a Contributor License Agreement (CLA).
+# Contributing to ACES Documentation
 
-Signing the CLA
----------------
+Thank you for your interest in contributing documentation to the ACES project.
 
-- Before we can merge any of your contributions, you must sign our CLA.
-- The process is simple. When you submit a pull request for the first time, you will be prompted to sign the CLA online.
-- If you are contributing on behalf of your employer or if your contributions are owned by someone other than yourself (e.g., your employer), please make sure you have the right to submit the contributions under our project's CLA.
+Even if you are not a programmer or just lack comfortability with contributing
+through the Git workflow, you can still contribute!
 
-By signing the CLA, you assure the project and its users that your contributions do not infringe upon the rights of any third parties and that the project can use your contributions without legal repercussions.
+All documentation content is generated from simple Markdown text files. This
+keeps it is easy for programmers and non-programmers alike to contribute. If you
+are intimidated by the process of forking, cloning, branching, committing, and
+submitting back via a pull request, that's ok.
 
-If you have any questions about the CLA process, please feel free to contact a member of the ACES Team via ACESCentral.com.
+Reach out to us and we can help get your content-including any text, images, or
+graphics-formatted into Markdown.
 
-Requirement for Signed Commits
-------------------------------
+This document explains details of the contribution process and procedures.
 
-As part of our commitment to security and the integrity of our codebase, we require all commits to be signed. This helps us ensure that contributions are actually made by the account they come from and not altered by a third party.
+## How the Documentation Is Built
 
-### Why Signed Commits?
+### Publishing
 
-Signed commits provide an additional layer of security by guaranteeing that the commits are from a verified source. This is crucial for maintaining the trustworthiness of our codebase.
+The ACES Documentation website is built using [MkDocs](https://www.mkdocs.org)
+using the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
+theme to generate HTML from simple Markdown files. The site configuration,
+including navigation, is managed through the `mkdocs.yml` file. 
 
-### How to Sign Commits
+Changes are automatically deployed via a [GitHub
+Action](.github/workflows/main.yml) triggered when new commits are made on `main`.
+Updates to `main` will publish to 
+[https://docs.acescentral.com](https://docs.acescentral.com).
 
-To sign commits, you'll need to use a GPG (GNU Privacy Guard) or S/MIME (Secure/Multipurpose Internet Mail Extensions) key. If you haven't already set up a GPG key, you can follow [GitHub's guide on generating a new GPG key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key).
+To update existing content, simply modify the relevant `.md` file. 
 
-Once you have a GPG key, you can add it to your GitHub account. For instructions on how to do this, see [GitHub's documentation on adding a new GPG key to your account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account).
+To add new pages, create a new `.md` file and add a reference to it in the `nav:`
+section found in `mkdocs.yml`.
 
-When you have your GPG key added to your GitHub account, you can start signing your commits. If you're using the command line, you can sign commits with `git commit -S -m "Your commit message"`.
+### Previewing
 
-### Verifying a Signed Commit
+By using Docker and the included `Dockerfile`, you can easily spin up a local
+version of the docs to preview your changes locally and make sure they appear
+exactly as you want before submitting your pull request. 
 
-You can verify that your commits are signed by looking for the "Verified" label on GitHub's commit interface.
+1.  Ensure Docker is installed and running. 
+2.  In your terminal, navigate to the local clone of the `aces-docs` repository. 
+3.  Type the command: `docker compose up` This will spin up a Docker container
+    for aces-docs. 
+4.  If the build completes and the Docker container is running, a local version
+    of the doc site will then be viewable at
+    [http://0.0.0.0:8000](http://0.0.0.0:8000).
+5.  The doc site should refresh whenever changes are saved. So continue to
+    adjust your files, hit save, and preview the changes until you are
+    satisfied. Once satisfied with your updates, proceed to submit a pull
+    request.
 
-### What if You Cannot Sign Your Commits?
+## Legal Requirements
 
-We understand that in some scenarios, you might not be able to sign commits. If you find yourself in this situation, please reach out to the project maintainers for assistance.
+ACES is a project hosted by the Academy Software Foundation (ASWF) and follows
+the open source software best practice policies of the ASWF TAC with guidance
+from the Linux Foundation.
 
-For more detailed instructions on signing commits, you can refer to [GitHub's documentation on signing commits](https://docs.github.com/en/github/authenticating-to-github/signing-commits).
+### License
 
-
-License
--------
-ACES Documentation is licensed under the 
-[Creative Commons Attribution 4.0 International License](./license).
+ACES Documentation is licensed under the [Creative Commons Attribution 4.0
+International License](./license). New contributions should abide by that license. 
 
 All new files must include a licence statement and copyright.
 
@@ -54,9 +73,44 @@ All new files must include a licence statement and copyright.
 <!-- Copyright Contributors to the ACES Documentation -->
 ```
 
+### Contributor License Agreement (CLA)
 
----
+To maintain the legal integrity of the project's codebase, we require all
+contributors to complete a **Contributor License Agreement (CLA)**.
 
-We appreciate your contributions to ACES, and we thank you for adhering to our signed commits policy. This policy helps us maintain the security and integrity of our codebase.
+ACES uses [EasyCLA](https://lfx.linuxfoundation.org/tools/easycla) for managing
+CLAs, which automatically checks to ensure a CLA has been signed by a contributor
+before a commit can be merged.
 
-If you have any questions about this process, please feel free to contact the project maintainers.
+* If you are an individual writing the code on your own time and you're SURE you
+  are the sole owner of any intellectual property you contribute, you can [sign
+  the CLA as an individual contributor](https://docs.linuxfoundation.org/lfx/easycla/contributors/individual-contributor).
+
+* If you are writing the code as part of your job, or if there is any
+  possibility that your employers might think they own any intellectual property
+  you create, then you should use the [Corporate Contributor Licence Agreement](https://docs.linuxfoundation.org/lfx/easycla/contributors/corporate-contributor).
+
+The ACES CLA's are the standard forms used by Linux Foundation projects and
+[recommended by the ASWF
+TAC](https://github.com/AcademySoftwareFoundation/tac/blob/main/process/contributing.md#contributor-license-agreement-cla).
+
+### Commit Sign-Off
+
+Every commit must be signed off. That is, every commit log message must include
+a “`Signed-off-by`” line (generated, for example, with “`git commit --signoff`”
+or "`git commit -s`"), indicating that the committer wrote the code and has the
+right to release it under the [license](LICENSE).
+
+Here is an example Signed-off-by line, which indicates that the submitter
+accepts the DCO:
+
+`Signed-off-by: John Doe <john.doe@example.com>`
+
+If John Doe has signed an individual CLA, or his corporation's CLA Manager has
+included his GitHub account in a corporate CLA approved list, his pull request
+can be merged. Otherwise the EasyCLA system will provide instructions on signing
+a CLA, or request inclusion in an existing corporate CLA approved list.
+
+See the [ASWF TAC
+CONTRIBUTING.md](https://github.com/AcademySoftwareFoundation/tac/blob/main/process/contributing.md#contribution-sign-off)
+file for more information on this requirement.
