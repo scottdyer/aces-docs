@@ -38,13 +38,16 @@ project can freely use your contributions. You can find more details and
 instructions on how to sign the CLA in the [CONTRIBUTING.md](./CONTRIBUTING.md)
 file.
 
+## Reporting Issues
+
+To report a problem, please [open an
+issue](https://github.com/ampas/aces-docs/issues). 
+
+For sensitive or security-related issues, do not use the public issue tracker.
+Instead, refer to [SECURITY.md](SECURITY.md) for details on the project's
+security policy.
+
 ## License
 
 ACES Documentation is licensed under the [Creative Commons Attribution 4.0
 International License](./license).
-
-## Support
-
-For support on ACES, please visit [ACESCentral.com](https://acescentral.com) or
-on the [\#ACES channel on the ASWF
-Slack](https://academysoftwarefdn.slack.com/archives/C09949SK82Y)
