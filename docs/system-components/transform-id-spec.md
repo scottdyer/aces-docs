@@ -59,13 +59,20 @@ The allowed substrings for each of the changeable placeholders are described in 
 | `Util` | “Utility Transform” <br> For miscellaneous associated transforms that do not implement core ACES Transforms but may be helpful when testing and or constructing pipelines. Examples: `Adjust_Exposure`, `Unity`, etc. |
 </div>
  
-!!! note "Interchangeability of Input and Color Space Conversion Transforms"
-    In effect, all Input transforms are also Color Space Conversion transforms, but all Color Space Conversion transforms are not necessarily Input Transforms. Specifically, CSC Transforms that convert from a camera manufacturer’s encoding space to ACES could also be labeled “Input” transforms. However, an Input Transform may sometimes include an extra step or steps that differ slightly from a “nominal” camera encoding transform. 
-    
-    When the CSC and Input transform are otherwise identical, the Input and CSC tokens can be used interchangeably, and the CSC token is preferred. It is not required to provide duplicate transforms where the filename and Transform ID are the only differences. Providing only the CSC is sufficient.
+
+
+!!! note "Relationship between Input and Color Space Conversion Transforms"
+    An Input Transform and CSC may perform identical mathematical operations, but they typically differ in intent. 
+
+    Historically, an Input Transform describes the math used to bring camera values into ACES as the first step of an ACES pipeline, and may include device-specific or use-specific considerations that are not intended for general or bi-directional use. These might include user-created or custom transforms intended for specific illuminants, or transforms derived empirically from prosumer devices where linear sensor data is not fully accessible.
+
+    A CSC describes a general, reusable and often reversible conversion between two defined color encodings or color representations. This includes conversions between camera encodings and ACES2065-1, and can be identical in function to Input Transforms in cases where cameras already map native sensor data directly to their own colorimetric encoding.
+        
+    When an Input transform and a CSC are mathematically identical, they can be considered interchangeable. In such cases, the CSC token is preferred for the transform type. It is not required to maintain duplicate transforms that differ only by filename or Transform ID. 
 
 !!! note
-    CSC transforms that convert from ACES _to_ a camera manufacturer’s encoding space could be considered an "Inverse Input Transforms". However, a token of `InvInput` is not defined and so CSC is the appropriate value for transform type.
+    A CSC transform that converts from ACES _to_ a camera manufacturer’s encoding space may be considered an "Inverse Input Transform". However, no `InvInput` TransformType is defined. Therefore, CSC is the appropriate substring value for transforms of this type.
+
 
 ### Namespace¶
 `Namespace` shall identify the creator of the transform. This is usually the name of a manufacturer or facility but could also be the name of an individual. 
