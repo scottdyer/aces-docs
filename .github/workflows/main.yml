@@ -4,65 +4,62 @@ on:
     branches:
       - dev
       - main
+
 jobs:
   docker:
-    name: Build Mkdocs site from docker container
+    name: Build Mkdocs site
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout dev branch
-        if: endsWith(github.ref, '/dev')
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-            ref: dev
             fetch-depth: 0
-      - name: Checkout main branch
-        if: endsWith(github.ref, '/main')
-        uses: actions/checkout@v2
-        with:
-            ref: main
-            fetch-depth: 0
-      - name: Setup git config
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-      - name: Build docker image
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build local docker image
         uses: docker/build-push-action@v2
         with:
           context: .
-          push: false
+          load: true
           tags: app:latest
+
       - name: Run mkdocs build via docker
         uses: addnab/docker-run-action@v3
         with:
           image: app:latest
-          options: --rm -v ${{ github.workspace }}:/docs -v ${{ github.workspace }}/site:/site
+          options: --rm -v ${{ github.workspace }}:/docs
           run: |
-            git config --global --add safe.directory /docs;
-            mkdocs build;
-      - name: Commit dev updates to site/staging branch
+            git config --global --add safe.directory /docs
+            mkdocs build
+
+      - name: Deploy to site/staging (from dev)
         if: endsWith(github.ref, '/dev')
         run: |
-          sudo chown -R runner:docker site;
-          git stash -u;
-          git fetch;
-          git switch site/staging;
-          rm -rf site;
-          git clean -d -x -f;
-          git stash pop;
-          git add .;
-          git commit -m 'Gitbot actions site change';
-          git push origin;
-      - name: Commit main updates to site/production branch
+          git config user.name "Github Actions Bot"
+          git config user.email "<>"
+          sudo chown -R $USER:$USER site
+          git fetch origin site/staging
+          git switch site/staging
+          rm -rf ./*
+          cp -r site/* .
+          rm -rf site
+          git add .
+          git commit -m "Deploy dev build to staging"
+          git push origin site/staging
+
+      - name: Deploy to site/production (from main)
         if: endsWith(github.ref, '/main')
         run: |
-          sudo chown -R runner:docker site;
-          git stash -u;
-          git fetch;
-          git switch site/production;
-          rm -rf site;
-          git clean -d -x -f;
-          git stash pop;
-          git add .;
-          git commit -m 'Gitbot actions site change';
-          git push origin;
-          
+          git config user.name "Github Actions Bot"
+          git config user.email "<>"
+          sudo chown -R $USER:$USER site
+          git fetch origin site/production
+          git switch site/production
+          rm -rf ./*
+          cp -r site/* .
+          rm -rf site
+          git add .
+          git commit -m "Deploy main build to production"
+          git push origin site/production
