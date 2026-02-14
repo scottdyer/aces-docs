@@ -48,17 +48,17 @@ The allowed substrings for each of the changeable placeholders are described in 
 
 <div align="center" markdown="1">
 <figcaption> <b>Table 2</b> - Options for TransformType</figcaption>
+</div>
+
 | Value | Description |
 |:----|:----|
-| `CSC` | "Color Space Conversion" <br> For converting between specified sets of color primary encodings and/or non-linear functions; original camera native data to ACES2065-1; also for converting between common color space representations such as Hellwig JMh.|
-| `Output` | “Output Transform” <br> For converting an ACES scene-referred image to a display-referred output; applies the combined Reference Rendering Transform and Output Device Transform |
-| `InvOutput` | “Inverse direction of an Output Transform” <br> Used to convert display-referred image into equivalent ACES values that will, upon application of the equivalent forward Output Transform, produce an output that is equal to the original input; useful for titles, pre-rendered logos/graphics, or incorporating archival video into an ACES project |
-| `Look` | “Look Transform”, a.k.a. Look Modification Transform (LMT) <br> For applying preset creative or technical grades that modify ACES data so that the starting look is different than the default rendering associated with an Output Transform. |
-| `InvLook` | “Inverse direction of a Look Transform” <br> For VFX to “undo” a modification of ACES data, if the Look has an analytical inverse. |
-| `Lib` | “Library Transform” <br> For “under-the-hood” transforms that are called and re-used by core transforms.|
-| `Util` | “Utility Transform” <br> For miscellaneous associated transforms that do not implement core ACES Transforms but may be helpful when testing and or constructing pipelines. Examples: `Adjust_Exposure`, `Unity`, etc. |
-</div>
- 
+| `CSC` | "Color Space Conversion" <br> A transform that converts between defined color encodings, color primary sets, and/or transfer functions. These include "white-paper" conversions between established camera encoding spaces and ACES2065-1. CSCs could also include conversions to and from other established color representation such as perceptual spaces.|
+| `Output` | “Output Transform” <br> A transform that converts an ACES scene-referred image to a display-referred output. An Output Transforms is equivalent to the combination of the Reference Rendering Transform and Output Device Transform on ACES engineering diagrams, and prior to ACES 2 used the token RRTODT.|
+| `InvOutput` | “Inverse direction of an Output Transform” <br> A transform that converts display-referred imagery into ACES values that reproduce the original display result when the corresponding forward Output Transform is applied. |
+| `Look` | “Look Transform”, a.k.a. Look Modification Transform (LMT) <br> A transform that applies modifications to ACES data to alter the default rendering appearance for technical or creative reasons.|
+| `InvLook` | “Inverse direction of a Look Transform” <br> The analytical inverse of a Look Transform, when such an inverse exists.|
+| `Lib` | “Library Transform” <br> A reusable internal transform intended for use by other core transforms.|
+| `Util` | “Utility Transform” <br> A non-core transform intended for testing, diagnostics, or pipeline construction (e.g., `Adjust_Exposure`, `Unity`).|
 
 
 !!! note "Relationship between Input and Color Space Conversion Transforms"
