@@ -53,6 +53,7 @@ The allowed substrings for each of the changeable placeholders are described in 
 | Value | Description |
 |:----|:----|
 | `CSC` | "Color Space Conversion" <br> A transform that converts between defined color encodings, color primary sets, and/or transfer functions. These include "white-paper" conversions between established camera encoding spaces and ACES2065-1. CSCs could also include conversions to and from other established color representation such as perceptual spaces.|
+| `Input` | "Input Transform", a.k.a. Input Device Transform (IDT) <br> A transform intended to convert source camera data into ACES2065-1.|
 | `Output` | “Output Transform” <br> A transform that converts an ACES scene-referred image to a display-referred output. An Output Transforms is equivalent to the combination of the Reference Rendering Transform and Output Device Transform on ACES engineering diagrams, and prior to ACES 2 used the token RRTODT.|
 | `InvOutput` | “Inverse direction of an Output Transform” <br> A transform that converts display-referred imagery into ACES values that reproduce the original display result when the corresponding forward Output Transform is applied. |
 | `Look` | “Look Transform”, a.k.a. Look Modification Transform (LMT) <br> A transform that applies modifications to ACES data to alter the default rendering appearance for technical or creative reasons.|
